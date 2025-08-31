@@ -1,191 +1,833 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ClientBase - Simple Client & Job Manager</title>
-  <style>
-    /* Reset & Base Styles */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClientBase - Stop Paying Monthly. Start Owning Your Business Tools.</title>
+    <meta name="description" content="Client management app for small businesses. One-time purchase €12.99. No subscriptions, no monthly fees. iOS-native, offline-first, privacy-focused.">
 
+```
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background: #fff;
-      overflow-x: hidden;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+        background: #000;
+        color: #1d1d1f;
+        overflow-x: hidden;
+        line-height: 1.47059;
+        font-weight: 400;
+        letter-spacing: -0.022em;
     }
-
+    
+    .container {
+        max-width: 1024px;
+        margin: 0 auto;
+        padding: 0 22px;
+    }
+    
+    /* Navigation */
+    nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(29, 29, 31, 0.72);
+        backdrop-filter: saturate(180%) blur(20px);
+        z-index: 1000;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 22px;
+        max-width: 1024px;
+        margin: 0 auto;
+        height: 44px;
+    }
+    
+    .logo {
+        font-size: 21px;
+        font-weight: 600;
+        color: #f5f5f7;
+        letter-spacing: -0.022em;
+    }
+    
+    .cta-nav {
+        background: #2d5a27;
+        color: #f5f5f7;
+        padding: 6px 14px;
+        border-radius: 16px;
+        text-decoration: none;
+        font-weight: 400;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        border: none;
+        line-height: 1.23536;
+    }
+    
+    .cta-nav:hover {
+        background: #1e3d1a;
+    }
+    
     /* Hero Section */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      padding-top: 44px;
-      overflow: hidden;
-
-      /* animated gradient background */
-      background: linear-gradient(120deg, #1a2e1a, #0d1a0d, #000000);
-      background-size: 300% 300%;
-      animation: gradientShift 12s ease infinite;
+        min-height: 100vh;
+        background: radial-gradient(ellipse at center, #1a2e1a 0%, #0d1a0d 70%, #000 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        padding-top: 44px;
+        overflow: hidden;
     }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
+    
     .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(45, 90, 39, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(45, 90, 39, 0.1) 0%, transparent 50%);
-      animation: subtleMove 8s ease-in-out infinite;
-      z-index: 0;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 30%, rgba(45, 90, 39, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(45, 90, 39, 0.1) 0%, transparent 50%);
+        animation: subtleMove 8s ease-in-out infinite;
     }
-
+    
     @keyframes subtleMove {
-      0%, 100% { 
-        background: 
-          radial-gradient(circle at 20% 30%, rgba(45, 90, 39, 0.15) 0%, transparent 50%),
-          radial-gradient(circle at 80% 70%, rgba(45, 90, 39, 0.1) 0%, transparent 50%);
-      }
-      50% { 
-        background: 
-          radial-gradient(circle at 30% 20%, rgba(45, 90, 39, 0.1) 0%, transparent 50%),
-          radial-gradient(circle at 70% 80%, rgba(45, 90, 39, 0.15) 0%, transparent 50%);
-      }
+        0%, 100% { 
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(45, 90, 39, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(45, 90, 39, 0.1) 0%, transparent 50%);
+        }
+        50% { 
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(45, 90, 39, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(45, 90, 39, 0.15) 0%, transparent 50%);
+        }
     }
-
+    
     .hero-content {
-      max-width: 800px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
     }
-
+    
     .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: white;
-      animation: fadeUp 1s ease-out;
+        font-size: 80px;
+        font-weight: 600;
+        line-height: 1.05;
+        letter-spacing: -0.015em;
+        color: #f5f5f7;
+        margin-bottom: 27px;
     }
-
+    
     .hero p {
-      font-size: 1.25rem;
-      margin-bottom: 2rem;
-      color: #ddd;
-      animation: fadeUp 1s ease-out 0.3s both;
+        font-size: 28px;
+        line-height: 1.14286;
+        font-weight: 400;
+        letter-spacing: 0.007em;
+        color: #a1a1a6;
+        margin-bottom: 40px;
     }
-
-    .cta-button {
-      display: inline-block;
-      padding: 1rem 2rem;
-      background: #2d5a27;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: background 0.3s;
-      animation: fadeUp 1s ease-out 0.6s both;
+    
+    .hero-cta {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
     }
-
-    .cta-button:hover {
-      background: #244a20;
+    
+    .btn-primary {
+        background: #2d5a27;
+        color: #f5f5f7;
+        padding: 16px 32px;
+        border-radius: 22px;
+        text-decoration: none;
+        font-weight: 400;
+        font-size: 19px;
+        line-height: 1.21053;
+        letter-spacing: -0.022em;
+        transition: all 0.3s ease;
+        border: none;
+        white-space: nowrap;
     }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    
+    .btn-primary:hover {
+        background: #1e3d1a;
     }
-
-    /* Features Section */
-    .features {
-      padding: 4rem 2rem;
-      background: #f9f9f9;
-      text-align: center;
+    
+    .btn-secondary {
+        color: #2997ff;
+        font-size: 19px;
+        line-height: 1.21053;
+        font-weight: 400;
+        letter-spacing: -0.022em;
+        text-decoration: none;
+        transition: color 0.3s ease;
     }
-
-    .features h2 {
-      font-size: 2rem;
-      margin-bottom: 2rem;
+    
+    .btn-secondary:hover {
+        color: #147ce5;
     }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      max-width: 1000px;
-      margin: 0 auto;
+    
+    /* Large Text Section */
+    .large-text-section {
+        background: #f5f5f7;
+        padding: 100px 0;
+        text-align: center;
     }
-
-    .feature {
-      padding: 2rem;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    
+    .large-text {
+        font-size: 48px;
+        line-height: 1.08349;
+        font-weight: 600;
+        letter-spacing: -0.003em;
+        color: #1d1d1f;
+        max-width: 800px;
+        margin: 0 auto;
     }
-
-    .feature h3 {
-      margin-bottom: 1rem;
-      color: #2d5a27;
+    
+    .highlight-green {
+        color: #2d5a27;
     }
-
+    
+    /* Features Grid */
+    .features-section {
+        background: #f5f5f7;
+        padding: 80px 0 100px 0;
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 40px;
+    }
+    
+    .feature-item {
+        text-align: center;
+    }
+    
+    .feature-item h3 {
+        font-size: 32px;
+        line-height: 1.125;
+        font-weight: 600;
+        letter-spacing: 0.004em;
+        color: #1d1d1f;
+        margin-bottom: 12px;
+    }
+    
+    .feature-item p {
+        font-size: 21px;
+        line-height: 1.381;
+        font-weight: 400;
+        letter-spacing: 0.011em;
+        color: #86868b;
+    }
+    
+    /* Split Section */
+    .split-section {
+        background: #000;
+        overflow: hidden;
+    }
+    
+    .split-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 100vh;
+    }
+    
+    .split-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 40px;
+        text-align: center;
+    }
+    
+    .split-left {
+        background: linear-gradient(135deg, #1d1d1f 0%, #2d2d30 100%);
+    }
+    
+    .split-right {
+        background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+    }
+    
+    .split-content h2 {
+        font-size: 56px;
+        line-height: 1.07143;
+        font-weight: 600;
+        letter-spacing: -0.005em;
+        color: #f5f5f7;
+        margin-bottom: 20px;
+    }
+    
+    .split-content p {
+        font-size: 24px;
+        line-height: 1.16667;
+        font-weight: 400;
+        letter-spacing: 0.009em;
+        color: rgba(245, 245, 247, 0.8);
+        max-width: 400px;
+    }
+    
+    /* Comparison Table */
+    .comparison-section {
+        background: #f5f5f7;
+        padding: 100px 0;
+    }
+    
+    .comparison-table {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        overflow: hidden;
+        max-width: 800px;
+        margin: 60px auto 0;
+    }
+    
+    .table-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        background: #f5f5f7;
+    }
+    
+    .table-header div {
+        padding: 24px 20px;
+        font-size: 19px;
+        font-weight: 600;
+        text-align: center;
+        border-right: 1px solid #d2d2d7;
+    }
+    
+    .table-header div:last-child {
+        border-right: none;
+        background: #2d5a27;
+        color: #f5f5f7;
+    }
+    
+    .table-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        border-bottom: 1px solid #d2d2d7;
+    }
+    
+    .table-row:last-child {
+        border-bottom: none;
+    }
+    
+    .table-cell {
+        padding: 20px;
+        font-size: 17px;
+        border-right: 1px solid #d2d2d7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .table-cell:last-child {
+        border-right: none;
+        background: rgba(45, 90, 39, 0.05);
+    }
+    
+    .check {
+        color: #2d5a27;
+        font-weight: 600;
+    }
+    
+    .cross {
+        color: #ff3b30;
+        font-weight: 600;
+    }
+    
+    /* Final CTA */
+    .final-cta {
+        background: #000;
+        padding: 120px 0;
+        text-align: center;
+    }
+    
+    .final-cta h2 {
+        font-size: 56px;
+        line-height: 1.07143;
+        font-weight: 600;
+        letter-spacing: -0.005em;
+        color: #f5f5f7;
+        margin-bottom: 27px;
+    }
+    
+    .final-cta p {
+        font-size: 28px;
+        line-height: 1.14286;
+        font-weight: 400;
+        letter-spacing: 0.007em;
+        color: #a1a1a6;
+        margin-bottom: 48px;
+    }
+    
+    .price-large {
+        font-size: 72px;
+        font-weight: 600;
+        color: #2d5a27;
+        margin-bottom: 12px;
+    }
+    
+    .price-subtitle {
+        font-size: 24px;
+        color: #a1a1a6;
+        margin-bottom: 48px;
+    }
+    
+    .app-store-btn {
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+    
+    .app-store-btn:hover {
+        transform: scale(1.05);
+    }
+    
+    .app-store-btn img {
+        height: 54px;
+    }
+    
     /* Footer */
     footer {
-      padding: 2rem;
-      text-align: center;
-      background: #2d5a27;
-      color: white;
+        background: #000;
+        padding: 40px 0;
+        text-align: center;
+        border-top: 1px solid #424245;
     }
-  </style>
+    
+    footer p {
+        color: #86868b;
+        font-size: 17px;
+    }
+    
+    /* Mobile Responsive */
+    @media (max-width: 1068px) {
+        .container {
+            padding: 0 40px;
+        }
+        
+        .nav-container {
+            padding: 12px 40px;
+        }
+    }
+    
+    @media (max-width: 834px) {
+        .container {
+            padding: 0 22px;
+        }
+        
+        .nav-container {
+            padding: 12px 22px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+        }
+        
+        .hero p {
+            font-size: 21px;
+        }
+        
+        .large-text {
+            font-size: 32px;
+        }
+        
+        .split-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .split-content h2 {
+            font-size: 40px;
+        }
+        
+        .split-content p {
+            font-size: 19px;
+        }
+        
+        .final-cta h2 {
+            font-size: 40px;
+        }
+        
+        .final-cta p {
+            font-size: 21px;
+        }
+        
+        .price-large {
+            font-size: 56px;
+        }
+        
+        .comparison-table {
+            display: none !important;
+        }
+        
+        .mobile-comparison {
+            display: block !important;
+        }
+        
+        .hero-cta {
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    
+    @media (max-width: 430px) {
+        .hero h1 {
+            font-size: 36px;
+        }
+        
+        .hero p {
+            font-size: 19px;
+        }
+        
+        .large-text {
+            font-size: 28px;
+        }
+        
+        .feature-item h3 {
+            font-size: 28px;
+        }
+        
+        .feature-item p {
+            font-size: 19px;
+        }
+    }
+    
+    /* Animations */
+    .fade-up {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* Parallax effect */
+    .parallax {
+        transform: translateY(0);
+        transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    /* Smooth scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Apple-style section spacing */
+    section {
+        position: relative;
+    }
+    
+    .section-title {
+        font-size: 48px;
+        line-height: 1.08349;
+        font-weight: 600;
+        letter-spacing: -0.003em;
+        color: #1d1d1f;
+        text-align: center;
+        margin-bottom: 27px;
+    }
+    
+    .section-subtitle {
+        font-size: 21px;
+        line-height: 1.381;
+        font-weight: 400;
+        letter-spacing: 0.011em;
+        color: #86868b;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto 80px auto;
+    }
+</style>
+```
+
 </head>
 <body>
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>ClientBase</h1>
-      <p>Simple Client & Job Manager for iOS. One-time purchase, no subscriptions.</p>
-      <a href="#" class="cta-button">Download on the App Store</a>
-    </div>
-  </section>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">ClientBase</div>
+            <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="cta-nav">Download</a>
+        </div>
+    </nav>
 
-  <!-- Features Section -->
-  <section class="features">
-    <h2>Why Choose ClientBase?</h2>
-    <div class="feature-grid">
-      <div class="feature">
-        <h3>All-in-One</h3>
-        <p>Keep track of clients and jobs in one simple place.</p>
-      </div>
-      <div class="feature">
-        <h3>No Subscriptions</h3>
-        <p>Pay once, own it forever. No hidden fees.</p>
-      </div>
-      <div class="feature">
-        <h3>Made for iOS</h3>
-        <p>Designed to work seamlessly on your iPhone.</p>
-      </div>
+```
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="fade-up">Stop paying monthly.<br>Start owning your tools.</h1>
+            <p class="fade-up">Professional client management for small businesses.<br>One purchase. No subscriptions.</p>
+            <div class="hero-cta fade-up">
+                <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="btn-primary">Download for €12.99</a>
+            </div>
+        </div>
     </div>
-  </section>
+</section>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 ClientBase. All rights reserved.</p>
-  </footer>
+<!-- Large Text Section -->
+<section class="large-text-section">
+    <div class="container">
+        <div class="large-text fade-up">
+            Professional client management.<br>
+            <span class="highlight-green">Without the monthly fees</span><br>
+            draining your profits.
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" id="features">
+    <div class="container">
+        <h2 class="section-title">Built for professionals.</h2>
+        <p class="section-subtitle">Every feature designed to solve real problems for service businesses. No subscriptions. No compromises.</p>
+        
+        <div class="features-grid">
+            <div class="feature-item fade-up">
+                <h3>Intelligent Scheduling</h3>
+                <p>Built-in conflict detection prevents double-booking disasters. Your reputation protected.</p>
+            </div>
+            
+            <div class="feature-item fade-up">
+                <h3>Payment Tracking</h3>
+                <p>See unpaid jobs instantly. Mark as paid with one tap. Keep cash flow healthy.</p>
+            </div>
+            
+            <div class="feature-item fade-up">
+                <h3>Works Offline</h3>
+                <p>Complete functionality without internet. Your business doesn't stop for connectivity.</p>
+            </div>
+            
+            <div class="feature-item fade-up">
+                <h3>Privacy First</h3>
+                <p>Your data stays on your device. No cloud storage. No corporate access to your business.</p>
+            </div>
+            
+            <div class="feature-item fade-up">
+                <h3>iOS Native</h3>
+                <p>Built specifically for iOS. Liquid Glass effects. Smooth, responsive, premium feel.</p>
+            </div>
+            
+            <div class="feature-item fade-up">
+                <h3>Smart Search</h3>
+                <p>Find any client instantly by name, phone, address, or tags. Seconds, not minutes.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Split Section -->
+<section class="split-section">
+    <div class="split-container">
+        <div class="split-content split-left">
+            <div>
+                <h2>Subscription apps</h2>
+                <p>Monthly fees forever.<br>Your data on their servers.<br>Limited offline access.</p>
+            </div>
+        </div>
+        <div class="split-content split-right">
+            <div>
+                <h2>ClientBase</h2>
+                <p>One purchase.<br>Your data stays yours.<br>Works everywhere.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Comparison Table -->
+<section class="comparison-section">
+    <div class="container">
+        <h2 class="section-title">The real cost of subscriptions.</h2>
+        <p class="section-subtitle">Monthly fees add up. Your profits shouldn't disappear into subscription costs.</p>
+        
+        <div class="comparison-table fade-up">
+            <div class="table-header">
+                <div></div>
+                <div>Subscription Apps</div>
+                <div>ClientBase</div>
+            </div>
+            
+            <div class="table-row">
+                <div class="table-cell">First Year Cost</div>
+                <div class="table-cell">€240+</div>
+                <div class="table-cell check">€12.99</div>
+            </div>
+            
+            <div class="table-row">
+                <div class="table-cell">Three Year Cost</div>
+                <div class="table-cell">€720+</div>
+                <div class="table-cell check">€12.99</div>
+            </div>
+            
+            <div class="table-row">
+                <div class="table-cell">Offline Access</div>
+                <div class="table-cell cross">Limited</div>
+                <div class="table-cell check">Complete</div>
+            </div>
+            
+            <div class="table-row">
+                <div class="table-cell">Data Privacy</div>
+                <div class="table-cell cross">On their servers</div>
+                <div class="table-cell check">On your device</div>
+            </div>
+            
+            <div class="table-row">
+                <div class="table-cell">Feature Paywalls</div>
+                <div class="table-cell cross">Yes</div>
+                <div class="table-cell check">None</div>
+            </div>
+            
+            <div class="table-row">
+                <div class="table-cell">Data Export</div>
+                <div class="table-cell cross">Restricted</div>
+                <div class="table-cell check">Anytime</div>
+            </div>
+        </div>
+        
+        <!-- Mobile-friendly summary -->
+        <div class="mobile-comparison fade-up" style="display: none;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h3 style="font-size: 32px; font-weight: 600; color: #1d1d1f; margin-bottom: 20px;">€12.99 once vs €720+ over 3 years</h3>
+                <p style="font-size: 19px; color: #86868b;">That's a saving of €707.01</p>
+            </div>
+            
+            <div style="display: grid; gap: 30px; max-width: 600px; margin: 0 auto;">
+                <div style="background: #fff; padding: 30px; border-radius: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                    <h4 style="font-size: 24px; font-weight: 600; color: #ff3b30; margin-bottom: 20px; text-align: center;">Subscription Apps</h4>
+                    <ul style="list-style: none; font-size: 17px; color: #1d1d1f;">
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">❌ €20+ monthly forever</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">❌ Limited offline access</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">❌ Your data on their servers</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">❌ Feature paywalls</li>
+                        <li style="padding: 8px 0;">❌ Restricted data export</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #fff; padding: 30px; border-radius: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid #2d5a27;">
+                    <h4 style="font-size: 24px; font-weight: 600; color: #2d5a27; margin-bottom: 20px; text-align: center;">ClientBase</h4>
+                    <ul style="list-style: none; font-size: 17px; color: #1d1d1f;">
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">✅ €12.99 once, forever</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">✅ Complete offline functionality</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">✅ Your data stays on your device</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">✅ All features included</li>
+                        <li style="padding: 8px 0;">✅ Export data anytime</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+    <div class="container">
+        <h2 class="fade-up">Own your business tools.</h2>
+        <p class="fade-up">Professional client management without the monthly fees.</p>
+        
+        <div class="fade-up">
+            <div class="price-large">€12.99</div>
+            <div class="price-subtitle">Once. Forever.</div>
+            
+            <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="app-store-btn">
+                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-gb?size=250x83" alt="Download on the App Store">
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>Built for small business owners who deserve better.</p>
+    </div>
+</footer>
+
+<script>
+    // Apple-style scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all fade-up elements
+    document.querySelectorAll('.fade-up').forEach(el => {
+        observer.observe(el);
+    });
+    
+    // Apple-style navbar on scroll
+    let lastScrollY = window.scrollY;
+    
+    window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('nav');
+        
+        if (window.scrollY > 100) {
+            navbar.style.background = 'rgba(29, 29, 31, 0.85)';
+        } else {
+            navbar.style.background = 'rgba(29, 29, 31, 0.72)';
+        }
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const offsetTop = target.offsetTop - 44;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Add visible class to hero elements on load
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.querySelectorAll('.hero .fade-up').forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, index * 200);
+            });
+        }, 300);
+    });
+    
+    // Trigger animations immediately for elements in view
+    document.addEventListener('DOMContentLoaded', () => {
+        // Check if elements are already in view on page load
+        document.querySelectorAll('.fade-up').forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                el.classList.add('visible');
+            }
+        });
+    });
+</script>
+```
+
 </body>
 </html>

@@ -1,833 +1,698 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClientBase - Stop Paying Monthly. Start Owning Your Business Tools.</title>
-    <meta name="description" content="Client management app for small businesses. One-time purchase €12.99. No subscriptions, no monthly fees. iOS-native, offline-first, privacy-focused.">
-
-```
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+    <title>ClientBase. - Professional Client Management Without Monthly Fees</title>
+    <meta name="description" content="Manage clients, schedule appointments, and track payments in one beautifully designed app. No monthly subscriptions. Perfect for freelancers, consultants, tradespeople, and small business owners.">
     
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-        background: #000;
-        color: #1d1d1f;
-        overflow-x: hidden;
-        line-height: 1.47059;
-        font-weight: 400;
-        letter-spacing: -0.022em;
-    }
-    
-    .container {
-        max-width: 1024px;
-        margin: 0 auto;
-        padding: 0 22px;
-    }
-    
-    /* Navigation */
-    nav {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background: rgba(29, 29, 31, 0.72);
-        backdrop-filter: saturate(180%) blur(20px);
-        z-index: 1000;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .nav-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 22px;
-        max-width: 1024px;
-        margin: 0 auto;
-        height: 44px;
-    }
-    
-    .logo {
-        font-size: 21px;
-        font-weight: 600;
-        color: #f5f5f7;
-        letter-spacing: -0.022em;
-    }
-    
-    .cta-nav {
-        background: #2d5a27;
-        color: #f5f5f7;
-        padding: 6px 14px;
-        border-radius: 16px;
-        text-decoration: none;
-        font-weight: 400;
-        font-size: 15px;
-        transition: all 0.3s ease;
-        border: none;
-        line-height: 1.23536;
-    }
-    
-    .cta-nav:hover {
-        background: #1e3d1a;
-    }
-    
-    /* Hero Section */
-    .hero {
-        min-height: 100vh;
-        background: radial-gradient(ellipse at center, #1a2e1a 0%, #0d1a0d 70%, #000 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        position: relative;
-        padding-top: 44px;
-        overflow: hidden;
-    }
-    
-    .hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: 
-            radial-gradient(circle at 20% 30%, rgba(45, 90, 39, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(45, 90, 39, 0.1) 0%, transparent 50%);
-        animation: subtleMove 8s ease-in-out infinite;
-    }
-    
-    @keyframes subtleMove {
-        0%, 100% { 
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(45, 90, 39, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(45, 90, 39, 0.1) 0%, transparent 50%);
+    <style>
+        @font-face {
+            font-family: 'Bodoni 72 Oldstyle';
+            src: local('Bodoni 72 Oldstyle Book'),
+                 local('Bodoni 72 Oldstyle'),
+                 local('Bodoni MT'),
+                 local('Bodoni');
+            font-weight: 400;
         }
-        50% { 
-            background: 
-                radial-gradient(circle at 30% 20%, rgba(45, 90, 39, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, rgba(45, 90, 39, 0.15) 0%, transparent 50%);
+        
+        @font-face {
+            font-family: 'Bodoni 72 Oldstyle';
+            src: local('Bodoni 72 Oldstyle Bold'),
+                 local('Bodoni MT Bold'),
+                 local('Bodoni Bold');
+            font-weight: 700;
         }
-    }
-    
-    .hero-content {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-    
-    .hero h1 {
-        font-size: 80px;
-        font-weight: 600;
-        line-height: 1.05;
-        letter-spacing: -0.015em;
-        color: #f5f5f7;
-        margin-bottom: 27px;
-    }
-    
-    .hero p {
-        font-size: 28px;
-        line-height: 1.14286;
-        font-weight: 400;
-        letter-spacing: 0.007em;
-        color: #a1a1a6;
-        margin-bottom: 40px;
-    }
-    
-    .hero-cta {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-    
-    .btn-primary {
-        background: #2d5a27;
-        color: #f5f5f7;
-        padding: 16px 32px;
-        border-radius: 22px;
-        text-decoration: none;
-        font-weight: 400;
-        font-size: 19px;
-        line-height: 1.21053;
-        letter-spacing: -0.022em;
-        transition: all 0.3s ease;
-        border: none;
-        white-space: nowrap;
-    }
-    
-    .btn-primary:hover {
-        background: #1e3d1a;
-    }
-    
-    .btn-secondary {
-        color: #2997ff;
-        font-size: 19px;
-        line-height: 1.21053;
-        font-weight: 400;
-        letter-spacing: -0.022em;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-    
-    .btn-secondary:hover {
-        color: #147ce5;
-    }
-    
-    /* Large Text Section */
-    .large-text-section {
-        background: #f5f5f7;
-        padding: 100px 0;
-        text-align: center;
-    }
-    
-    .large-text {
-        font-size: 48px;
-        line-height: 1.08349;
-        font-weight: 600;
-        letter-spacing: -0.003em;
-        color: #1d1d1f;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-    
-    .highlight-green {
-        color: #2d5a27;
-    }
-    
-    /* Features Grid */
-    .features-section {
-        background: #f5f5f7;
-        padding: 80px 0 100px 0;
-    }
-    
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 40px;
-    }
-    
-    .feature-item {
-        text-align: center;
-    }
-    
-    .feature-item h3 {
-        font-size: 32px;
-        line-height: 1.125;
-        font-weight: 600;
-        letter-spacing: 0.004em;
-        color: #1d1d1f;
-        margin-bottom: 12px;
-    }
-    
-    .feature-item p {
-        font-size: 21px;
-        line-height: 1.381;
-        font-weight: 400;
-        letter-spacing: 0.011em;
-        color: #86868b;
-    }
-    
-    /* Split Section */
-    .split-section {
-        background: #000;
-        overflow: hidden;
-    }
-    
-    .split-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        min-height: 100vh;
-    }
-    
-    .split-content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 80px 40px;
-        text-align: center;
-    }
-    
-    .split-left {
-        background: linear-gradient(135deg, #1d1d1f 0%, #2d2d30 100%);
-    }
-    
-    .split-right {
-        background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
-    }
-    
-    .split-content h2 {
-        font-size: 56px;
-        line-height: 1.07143;
-        font-weight: 600;
-        letter-spacing: -0.005em;
-        color: #f5f5f7;
-        margin-bottom: 20px;
-    }
-    
-    .split-content p {
-        font-size: 24px;
-        line-height: 1.16667;
-        font-weight: 400;
-        letter-spacing: 0.009em;
-        color: rgba(245, 245, 247, 0.8);
-        max-width: 400px;
-    }
-    
-    /* Comparison Table */
-    .comparison-section {
-        background: #f5f5f7;
-        padding: 100px 0;
-    }
-    
-    .comparison-table {
-        background: #fff;
-        border-radius: 18px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        overflow: hidden;
-        max-width: 800px;
-        margin: 60px auto 0;
-    }
-    
-    .table-header {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        background: #f5f5f7;
-    }
-    
-    .table-header div {
-        padding: 24px 20px;
-        font-size: 19px;
-        font-weight: 600;
-        text-align: center;
-        border-right: 1px solid #d2d2d7;
-    }
-    
-    .table-header div:last-child {
-        border-right: none;
-        background: #2d5a27;
-        color: #f5f5f7;
-    }
-    
-    .table-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        border-bottom: 1px solid #d2d2d7;
-    }
-    
-    .table-row:last-child {
-        border-bottom: none;
-    }
-    
-    .table-cell {
-        padding: 20px;
-        font-size: 17px;
-        border-right: 1px solid #d2d2d7;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-    
-    .table-cell:last-child {
-        border-right: none;
-        background: rgba(45, 90, 39, 0.05);
-    }
-    
-    .check {
-        color: #2d5a27;
-        font-weight: 600;
-    }
-    
-    .cross {
-        color: #ff3b30;
-        font-weight: 600;
-    }
-    
-    /* Final CTA */
-    .final-cta {
-        background: #000;
-        padding: 120px 0;
-        text-align: center;
-    }
-    
-    .final-cta h2 {
-        font-size: 56px;
-        line-height: 1.07143;
-        font-weight: 600;
-        letter-spacing: -0.005em;
-        color: #f5f5f7;
-        margin-bottom: 27px;
-    }
-    
-    .final-cta p {
-        font-size: 28px;
-        line-height: 1.14286;
-        font-weight: 400;
-        letter-spacing: 0.007em;
-        color: #a1a1a6;
-        margin-bottom: 48px;
-    }
-    
-    .price-large {
-        font-size: 72px;
-        font-weight: 600;
-        color: #2d5a27;
-        margin-bottom: 12px;
-    }
-    
-    .price-subtitle {
-        font-size: 24px;
-        color: #a1a1a6;
-        margin-bottom: 48px;
-    }
-    
-    .app-store-btn {
-        display: inline-block;
-        transition: transform 0.3s ease;
-    }
-    
-    .app-store-btn:hover {
-        transform: scale(1.05);
-    }
-    
-    .app-store-btn img {
-        height: 54px;
-    }
-    
-    /* Footer */
-    footer {
-        background: #000;
-        padding: 40px 0;
-        text-align: center;
-        border-top: 1px solid #424245;
-    }
-    
-    footer p {
-        color: #86868b;
-        font-size: 17px;
-    }
-    
-    /* Mobile Responsive */
-    @media (max-width: 1068px) {
-        .container {
-            padding: 0 40px;
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --green-primary: #16a34a;
+            --green-dark: #15803d;
+            --green-light: #22c55e;
+            --cream: #faf8f3;
+            --charcoal: #1a1a1a;
+            --gray-text: #6b7280;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            overflow-x: hidden;
+            line-height: 1.6;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+        
+        .bodoni {
+            font-family: 'Bodoni 72 Oldstyle', 'Bodoni MT', Bodoni, Georgia, serif;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+        
+        .bodoni-bold {
+            font-family: 'Bodoni 72 Oldstyle', 'Bodoni MT', Bodoni, Georgia, serif;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 248, 243, 0.95);
+            backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(26, 26, 26, 0.08);
         }
         
         .nav-container {
-            padding: 12px 40px;
-        }
-    }
-    
-    @media (max-width: 834px) {
-        .container {
-            padding: 0 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            max-width: 1280px;
+            margin: 0 auto;
         }
         
-        .nav-container {
-            padding: 12px 22px;
+        .logo {
+            font-size: 28px;
+            color: var(--charcoal);
+            letter-spacing: -0.03em;
+        }
+        
+        .nav-cta {
+            background: var(--green-primary);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 24px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        
+        .nav-cta:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--cream) 0%, #f0ede4 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(34, 197, 94, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(22, 163, 74, 0.03) 0%, transparent 50%);
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
         
         .hero h1 {
-            font-size: 48px;
+            font-size: clamp(48px, 7vw, 88px);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--charcoal);
+            letter-spacing: -0.035em;
         }
         
-        .hero p {
-            font-size: 21px;
+        .hero .tagline {
+            font-size: clamp(20px, 2.5vw, 28px);
+            line-height: 1.4;
+            color: var(--gray-text);
+            margin-bottom: 48px;
+            font-weight: 400;
         }
         
-        .large-text {
-            font-size: 32px;
-        }
-        
-        .split-container {
-            grid-template-columns: 1fr;
-        }
-        
-        .split-content h2 {
-            font-size: 40px;
-        }
-        
-        .split-content p {
-            font-size: 19px;
-        }
-        
-        .final-cta h2 {
-            font-size: 40px;
-        }
-        
-        .final-cta p {
-            font-size: 21px;
-        }
-        
-        .price-large {
-            font-size: 56px;
-        }
-        
-        .comparison-table {
-            display: none !important;
-        }
-        
-        .mobile-comparison {
-            display: block !important;
-        }
-        
-        .hero-cta {
+        .hero-buttons {
+            display: flex;
+            gap: 24px;
             justify-content: center;
             align-items: center;
-        }
-    }
-    
-    @media (max-width: 430px) {
-        .hero h1 {
-            font-size: 36px;
+            flex-wrap: wrap;
         }
         
-        .hero p {
-            font-size: 19px;
+        .btn-primary {
+            background: var(--green-primary);
+            color: var(--white);
+            padding: 18px 40px;
+            border-radius: 32px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+            box-shadow: 0 4px 14px rgba(22, 163, 74, 0.25);
         }
         
-        .large-text {
-            font-size: 28px;
+        .btn-primary:hover {
+            background: var(--green-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(22, 163, 74, 0.35);
         }
         
-        .feature-item h3 {
-            font-size: 28px;
+        .btn-secondary {
+            color: var(--green-primary);
+            font-size: 18px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
-        .feature-item p {
-            font-size: 19px;
+        .btn-secondary:hover {
+            color: var(--green-dark);
+            transform: translateX(4px);
         }
-    }
-    
-    /* Animations */
-    .fade-up {
-        opacity: 0;
-        transform: translateY(40px);
-        transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .fade-up.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    /* Parallax effect */
-    .parallax {
-        transform: translateY(0);
-        transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    /* Smooth scrolling */
-    html {
-        scroll-behavior: smooth;
-    }
-    
-    /* Apple-style section spacing */
-    section {
-        position: relative;
-    }
-    
-    .section-title {
-        font-size: 48px;
-        line-height: 1.08349;
-        font-weight: 600;
-        letter-spacing: -0.003em;
-        color: #1d1d1f;
-        text-align: center;
-        margin-bottom: 27px;
-    }
-    
-    .section-subtitle {
-        font-size: 21px;
-        line-height: 1.381;
-        font-weight: 400;
-        letter-spacing: 0.011em;
-        color: #86868b;
-        text-align: center;
-        max-width: 600px;
-        margin: 0 auto 80px auto;
-    }
-</style>
-```
-
+        
+        /* Feature Cards Section */
+        .features-section {
+            background: var(--white);
+            padding: 120px 20px;
+        }
+        
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: clamp(40px, 5vw, 64px);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--charcoal);
+            letter-spacing: -0.03em;
+        }
+        
+        .section-subtitle {
+            font-size: 20px;
+            color: var(--gray-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 80px;
+        }
+        
+        .feature-card {
+            background: var(--cream);
+            padding: 40px;
+            border-radius: 24px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 40px;
+            height: 4px;
+            background: var(--green-primary);
+            margin-bottom: 24px;
+            border-radius: 2px;
+        }
+        
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: var(--charcoal);
+            letter-spacing: -0.02em;
+        }
+        
+        .feature-card p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--gray-text);
+        }
+        
+        /* Highlight Features */
+        .highlight-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            background: var(--charcoal);
+            padding: 48px;
+            border-radius: 32px;
+            color: var(--white);
+            margin-top: 80px;
+        }
+        
+        .highlight-item h4 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--green-light);
+            letter-spacing: -0.02em;
+        }
+        
+        .highlight-item p {
+            font-size: 16px;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+        
+        /* Comparison Section */
+        .comparison-section {
+            background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+            padding: 120px 20px;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 60px auto 0;
+        }
+        
+        .comparison-card {
+            padding: 48px;
+            border-radius: 24px;
+            text-align: center;
+        }
+        
+        .comparison-others {
+            background: var(--white);
+            border: 2px solid #e5e7eb;
+        }
+        
+        .comparison-clientbase {
+            background: var(--green-primary);
+            color: var(--white);
+            box-shadow: 0 20px 40px rgba(22, 163, 74, 0.3);
+        }
+        
+        .comparison-card h3 {
+            font-size: 32px;
+            margin-bottom: 32px;
+            letter-spacing: -0.025em;
+        }
+        
+        .comparison-list {
+            list-style: none;
+            text-align: left;
+            font-size: 18px;
+            line-height: 2;
+        }
+        
+        .comparison-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .comparison-list li::before {
+            content: '✓';
+            font-weight: bold;
+            margin-top: 2px;
+        }
+        
+        .comparison-others .comparison-list li::before {
+            content: '✗';
+            color: #ef4444;
+        }
+        
+        .comparison-clientbase .comparison-list li::before {
+            content: '✓';
+            color: var(--white);
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            background: var(--white);
+            padding: 120px 20px;
+            text-align: center;
+        }
+        
+        .price-display {
+            margin: 60px auto;
+        }
+        
+        .price-amount {
+            font-size: clamp(64px, 8vw, 96px);
+            color: var(--green-primary);
+            line-height: 1;
+            margin-bottom: 16px;
+            letter-spacing: -0.04em;
+        }
+        
+        .price-period {
+            font-size: 24px;
+            color: var(--gray-text);
+            margin-bottom: 48px;
+        }
+        
+        .app-store-badge {
+            display: inline-block;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0 auto;
+        }
+        
+        .app-store-badge:hover {
+            transform: scale(1.05);
+        }
+        
+        .app-store-badge img {
+            height: 60px;
+            width: auto;
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--white);
+            padding: 80px 20px 40px;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 48px;
+            margin-bottom: 24px;
+            letter-spacing: -0.035em;
+        }
+        
+        .footer-tagline {
+            font-size: 18px;
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+        
+        .footer-bottom {
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+        }
+        
+        .footer-bottom p {
+            opacity: 0.6;
+            font-size: 14px;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 16px 20px;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .hero {
+                padding: 100px 20px 60px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .highlight-features {
+                padding: 32px 24px;
+                gap: 32px;
+            }
+            
+            .comparison-card {
+                padding: 32px;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">ClientBase</div>
-            <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="cta-nav">Download</a>
+            <div class="logo bodoni-bold">ClientBase.</div>
+            <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="nav-cta">Get the App</a>
         </div>
     </nav>
 
-```
-<!-- Hero Section -->
-<section class="hero">
-    <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="hero-content">
-            <h1 class="fade-up">Stop paying monthly.<br>Start owning your tools.</h1>
-            <p class="fade-up">Professional client management for small businesses.<br>One purchase. No subscriptions.</p>
-            <div class="hero-cta fade-up">
+            <h1 class="bodoni fade-in">Own Your Business Tools</h1>
+            <p class="tagline fade-in delay-1">Manage clients, schedule appointments, and track payments<br>in one beautifully designed app. No monthly subscriptions.</p>
+            <div class="hero-buttons fade-in delay-2">
                 <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="btn-primary">Download for €12.99</a>
+                <a href="#features" class="btn-secondary">See Features →</a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Large Text Section -->
-<section class="large-text-section">
-    <div class="container">
-        <div class="large-text fade-up">
-            Professional client management.<br>
-            <span class="highlight-green">Without the monthly fees</span><br>
-            draining your profits.
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title bodoni">Everything You Need.<br>Nothing You Don't.</h2>
+                <p class="section-subtitle">Perfect for freelancers, consultants, tradespeople, and small business owners who want simple, powerful client management.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3 class="bodoni">Professional Invoicing</h3>
+                    <p>Create custom invoices right in the app, or generate them automatically from unpaid appointments. Get paid faster with everything in one place.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3 class="bodoni">Smart Scheduling</h3>
+                    <p>Automatically move recurring clients to the days you're actually working. Intelligent double-booking alerts prevent costly scheduling mistakes.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3 class="bodoni">Payment Tracking</h3>
+                    <p>See all unpaid appointments at a glance. Mark them as paid with a single tap. Get a clear, instant overview of your cash flow.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3 class="bodoni">Detailed Client Profiles</h3>
+                    <p>Store contact info, appointment history, notes, and custom tags. Call or message clients directly from the app with a single tap.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3 class="bodoni">Business Analytics</h3>
+                    <p>View your earnings, appointments, and client statistics weekly and monthly. Understand your business health at a glance.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3 class="bodoni">Powerful Search</h3>
+                    <p>Find any client or appointment in seconds by name, phone number, address, or custom tags. Your entire business at your fingertips.</p>
+                </div>
+            </div>
+            
+            <div class="highlight-features">
+                <div class="highlight-item">
+                    <h4 class="bodoni">Privacy-First & Offline</h4>
+                    <p>Your business data is yours alone. Everything stored securely on your device - no cloud servers, no data collection, no internet required.</p>
+                </div>
+                <div class="highlight-item">
+                    <h4 class="bodoni">Weather Integration</h4>
+                    <p>See forecasts for today and your upcoming jobs right where you need it. Plan your schedule around the weather.</p>
+                </div>
+                <div class="highlight-item">
+                    <h4 class="bodoni">Message Templates</h4>
+                    <p>Save time with customizable templates for appointment confirmations. Set up once, send with a tap.</p>
+                </div>
+                <div class="highlight-item">
+                    <h4 class="bodoni">Beautiful iOS Design</h4>
+                    <p>Modern iOS interface with fluid animations. Built specifically for iPhone and iPad with attention to every detail.</p>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Features Section -->
-<section class="features-section" id="features">
-    <div class="container">
-        <h2 class="section-title">Built for professionals.</h2>
-        <p class="section-subtitle">Every feature designed to solve real problems for service businesses. No subscriptions. No compromises.</p>
-        
-        <div class="features-grid">
-            <div class="feature-item fade-up">
-                <h3>Intelligent Scheduling</h3>
-                <p>Built-in conflict detection prevents double-booking disasters. Your reputation protected.</p>
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title bodoni">Why Professionals<br>Choose ClientBase.</h2>
+                <p class="section-subtitle">Stop paying monthly fees that eat into your profits.</p>
             </div>
             
-            <div class="feature-item fade-up">
-                <h3>Payment Tracking</h3>
-                <p>See unpaid jobs instantly. Mark as paid with one tap. Keep cash flow healthy.</p>
-            </div>
-            
-            <div class="feature-item fade-up">
-                <h3>Works Offline</h3>
-                <p>Complete functionality without internet. Your business doesn't stop for connectivity.</p>
-            </div>
-            
-            <div class="feature-item fade-up">
-                <h3>Privacy First</h3>
-                <p>Your data stays on your device. No cloud storage. No corporate access to your business.</p>
-            </div>
-            
-            <div class="feature-item fade-up">
-                <h3>iOS Native</h3>
-                <p>Built specifically for iOS. Liquid Glass effects. Smooth, responsive, premium feel.</p>
-            </div>
-            
-            <div class="feature-item fade-up">
-                <h3>Smart Search</h3>
-                <p>Find any client instantly by name, phone, address, or tags. Seconds, not minutes.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Split Section -->
-<section class="split-section">
-    <div class="split-container">
-        <div class="split-content split-left">
-            <div>
-                <h2>Subscription apps</h2>
-                <p>Monthly fees forever.<br>Your data on their servers.<br>Limited offline access.</p>
-            </div>
-        </div>
-        <div class="split-content split-right">
-            <div>
-                <h2>ClientBase</h2>
-                <p>One purchase.<br>Your data stays yours.<br>Works everywhere.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Comparison Table -->
-<section class="comparison-section">
-    <div class="container">
-        <h2 class="section-title">The real cost of subscriptions.</h2>
-        <p class="section-subtitle">Monthly fees add up. Your profits shouldn't disappear into subscription costs.</p>
-        
-        <div class="comparison-table fade-up">
-            <div class="table-header">
-                <div></div>
-                <div>Subscription Apps</div>
-                <div>ClientBase</div>
-            </div>
-            
-            <div class="table-row">
-                <div class="table-cell">First Year Cost</div>
-                <div class="table-cell">€240+</div>
-                <div class="table-cell check">€12.99</div>
-            </div>
-            
-            <div class="table-row">
-                <div class="table-cell">Three Year Cost</div>
-                <div class="table-cell">€720+</div>
-                <div class="table-cell check">€12.99</div>
-            </div>
-            
-            <div class="table-row">
-                <div class="table-cell">Offline Access</div>
-                <div class="table-cell cross">Limited</div>
-                <div class="table-cell check">Complete</div>
-            </div>
-            
-            <div class="table-row">
-                <div class="table-cell">Data Privacy</div>
-                <div class="table-cell cross">On their servers</div>
-                <div class="table-cell check">On your device</div>
-            </div>
-            
-            <div class="table-row">
-                <div class="table-cell">Feature Paywalls</div>
-                <div class="table-cell cross">Yes</div>
-                <div class="table-cell check">None</div>
-            </div>
-            
-            <div class="table-row">
-                <div class="table-cell">Data Export</div>
-                <div class="table-cell cross">Restricted</div>
-                <div class="table-cell check">Anytime</div>
-            </div>
-        </div>
-        
-        <!-- Mobile-friendly summary -->
-        <div class="mobile-comparison fade-up" style="display: none;">
-            <div style="text-align: center; margin-bottom: 40px;">
-                <h3 style="font-size: 32px; font-weight: 600; color: #1d1d1f; margin-bottom: 20px;">€12.99 once vs €720+ over 3 years</h3>
-                <p style="font-size: 19px; color: #86868b;">That's a saving of €707.01</p>
-            </div>
-            
-            <div style="display: grid; gap: 30px; max-width: 600px; margin: 0 auto;">
-                <div style="background: #fff; padding: 30px; border-radius: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-                    <h4 style="font-size: 24px; font-weight: 600; color: #ff3b30; margin-bottom: 20px; text-align: center;">Subscription Apps</h4>
-                    <ul style="list-style: none; font-size: 17px; color: #1d1d1f;">
-                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">❌ €20+ monthly forever</li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">❌ Limited offline access</li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">❌ Your data on their servers</li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">❌ Feature paywalls</li>
-                        <li style="padding: 8px 0;">❌ Restricted data export</li>
+            <div class="comparison-grid">
+                <div class="comparison-card comparison-others">
+                    <h3 class="bodoni">Subscription Apps</h3>
+                    <ul class="comparison-list">
+                        <li>€20+ monthly forever</li>
+                        <li>€720+ over 3 years</li>
+                        <li>Limited offline access</li>
+                        <li>Your data on their servers</li>
+                        <li>Feature paywalls</li>
+                        <li>Restricted data export</li>
                     </ul>
                 </div>
                 
-                <div style="background: #fff; padding: 30px; border-radius: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid #2d5a27;">
-                    <h4 style="font-size: 24px; font-weight: 600; color: #2d5a27; margin-bottom: 20px; text-align: center;">ClientBase</h4>
-                    <ul style="list-style: none; font-size: 17px; color: #1d1d1f;">
-                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">✅ €12.99 once, forever</li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">✅ Complete offline functionality</li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">✅ Your data stays on your device</li>
-                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">✅ All features included</li>
-                        <li style="padding: 8px 0;">✅ Export data anytime</li>
+                <div class="comparison-card comparison-clientbase">
+                    <h3 class="bodoni">ClientBase.</h3>
+                    <ul class="comparison-list">
+                        <li>€12.99 once, forever</li>
+                        <li>No recurring fees</li>
+                        <li>Full functionality offline</li>
+                        <li>Your data stays on your device</li>
+                        <li>All features included</li>
+                        <li>Export your data anytime</li>
                     </ul>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Final CTA -->
-<section class="final-cta">
-    <div class="container">
-        <h2 class="fade-up">Own your business tools.</h2>
-        <p class="fade-up">Professional client management without the monthly fees.</p>
-        
-        <div class="fade-up">
-            <div class="price-large">€12.99</div>
-            <div class="price-subtitle">Once. Forever.</div>
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="container">
+            <h2 class="section-title bodoni">Download once.<br>Use forever.</h2>
             
-            <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="app-store-btn">
-                <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-gb?size=250x83" alt="Download on the App Store">
-            </a>
+            <div class="price-display">
+                <div class="price-amount bodoni-bold">€12.99</div>
+                <div class="price-period">One-time purchase. No subscriptions.</div>
+                
+                <div style="text-align: center;">
+                    <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="app-store-badge">
+                        <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-gb?size=250x83" alt="Download on the App Store">
+                    </a>
+                </div>
+            </div>
+            
+            <p class="section-subtitle">Complete control. Your data stays yours. No lock-in.</p>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <p>Built for small business owners who deserve better.</p>
-    </div>
-</footer>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo bodoni-bold">ClientBase.</div>
+            <p class="footer-tagline">Professional client management without the monthly fees.</p>
+            
+            <div class="footer-bottom">
+                <p>© 2025 ClientBase. Built for small business owners who deserve better.</p>
+            </div>
+        </div>
+    </footer>
 
-<script>
-    // Apple-style scroll animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, observerOptions);
-    
-    // Observe all fade-up elements
-    document.querySelectorAll('.fade-up').forEach(el => {
-        observer.observe(el);
-    });
-    
-    // Apple-style navbar on scroll
-    let lastScrollY = window.scrollY;
-    
-    window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('nav');
-        
-        if (window.scrollY > 100) {
-            navbar.style.background = 'rgba(29, 29, 31, 0.85)';
-        } else {
-            navbar.style.background = 'rgba(29, 29, 31, 0.72)';
-        }
-    });
-    
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const offsetTop = target.offsetTop - 44;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-    
-    // Add visible class to hero elements on load
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            document.querySelectorAll('.hero .fade-up').forEach((el, index) => {
-                setTimeout(() => {
-                    el.classList.add('visible');
-                }, index * 200);
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             });
-        }, 300);
-    });
-    
-    // Trigger animations immediately for elements in view
-    document.addEventListener('DOMContentLoaded', () => {
-        // Check if elements are already in view on page load
-        document.querySelectorAll('.fade-up').forEach(el => {
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                el.classList.add('visible');
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and sections
+        document.querySelectorAll('.feature-card, .comparison-card, .highlight-features').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(250, 248, 243, 0.98)';
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+            } else {
+                navbar.style.background = 'rgba(250, 248, 243, 0.95)';
+                navbar.style.boxShadow = 'none';
             }
         });
-    });
-</script>
-```
-
+    </script>
 </body>
 </html>

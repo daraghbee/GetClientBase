@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClientBase. - Professional Client Management Without Monthly Fees</title>
-    <meta name="description" content="Manage clients, schedule appointments, and track payments in one beautifully designed app. No monthly subscriptions. Perfect for freelancers, consultants, tradespeople, and small business owners.">
+    <title>ClientBase. - Professional Client Management for Service Businesses</title>
+    <meta name="description" content="Manage clients, schedule appointments, track payments, and run your service business in one beautifully designed app. Built for tradespeople, cleaners, gardeners, car valets, and independent professionals.">
     
     <style>
         @font-face {
@@ -34,10 +34,23 @@
             --green-primary: #16a34a;
             --green-dark: #15803d;
             --green-light: #22c55e;
+            --green-soft: rgba(22, 163, 74, 0.08);
             --cream: #faf8f3;
-            --charcoal: #1a1a1a;
+            --cream-deep: #f3efe4;
+            --charcoal: #171717;
             --gray-text: #6b7280;
+            --gray-light: #e5e7eb;
             --white: #ffffff;
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 18px 40px rgba(0, 0, 0, 0.08);
+            --shadow-green: 0 18px 40px rgba(22, 163, 74, 0.18);
+            --radius-lg: 28px;
+            --radius-md: 22px;
+            --radius-sm: 16px;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
@@ -62,24 +75,29 @@
             letter-spacing: -0.025em;
         }
         
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
         /* Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(250, 248, 243, 0.95);
+            background: rgba(250, 248, 243, 0.82);
             backdrop-filter: saturate(180%) blur(20px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+            border-bottom: 1px solid rgba(23, 23, 23, 0.06);
+            transition: all 0.3s ease;
         }
         
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
-            max-width: 1280px;
-            margin: 0 auto;
+            padding: 18px 0;
         }
         
         .logo {
@@ -87,103 +105,137 @@
             color: var(--charcoal);
             letter-spacing: -0.03em;
         }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-pill {
+            font-size: 14px;
+            color: var(--gray-text);
+            background: rgba(255,255,255,0.8);
+            border: 1px solid rgba(23,23,23,0.08);
+            padding: 8px 14px;
+            border-radius: 999px;
+        }
         
         .nav-cta {
             background: var(--green-primary);
             color: var(--white);
-            padding: 10px 24px;
-            border-radius: 24px;
+            padding: 10px 22px;
+            border-radius: 999px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 15px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-block;
+            box-shadow: 0 8px 20px rgba(22, 163, 74, 0.18);
         }
         
         .nav-cta:hover {
             background: var(--green-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3);
+            box-shadow: 0 12px 28px rgba(22, 163, 74, 0.28);
         }
         
         /* Hero Section */
         .hero {
             min-height: 100vh;
-            background: linear-gradient(135deg, var(--cream) 0%, #f0ede4 100%);
+            background:
+                radial-gradient(circle at 15% 25%, rgba(34, 197, 94, 0.11) 0%, transparent 32%),
+                radial-gradient(circle at 85% 75%, rgba(22, 163, 74, 0.08) 0%, transparent 34%),
+                linear-gradient(180deg, #fdfbf6 0%, var(--cream) 55%, #f2eee2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 120px 20px 80px;
+            padding: 140px 20px 90px;
             position: relative;
         }
         
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(34, 197, 94, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(22, 163, 74, 0.03) 0%, transparent 50%);
-        }
-        
         .hero-content {
-            max-width: 900px;
+            max-width: 980px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
         }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.82);
+            border: 1px solid rgba(23,23,23,0.08);
+            padding: 10px 16px;
+            border-radius: 999px;
+            color: var(--gray-text);
+            font-size: 14px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green-primary);
+        }
         
         .hero h1 {
             font-size: clamp(48px, 7vw, 88px);
-            line-height: 1.1;
-            margin-bottom: 24px;
+            line-height: 1.04;
+            margin-bottom: 22px;
             color: var(--charcoal);
-            letter-spacing: -0.035em;
+            letter-spacing: -0.04em;
         }
         
         .hero .tagline {
-            font-size: clamp(20px, 2.5vw, 28px);
-            line-height: 1.4;
+            font-size: clamp(20px, 2.45vw, 28px);
+            line-height: 1.42;
             color: var(--gray-text);
-            margin-bottom: 48px;
+            margin: 0 auto 42px;
+            max-width: 800px;
             font-weight: 400;
         }
         
         .hero-buttons {
             display: flex;
-            gap: 24px;
+            gap: 18px;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            margin-bottom: 34px;
         }
         
         .btn-primary {
             background: var(--green-primary);
             color: var(--white);
-            padding: 18px 40px;
-            border-radius: 32px;
+            padding: 18px 36px;
+            border-radius: 999px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 18px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-block;
-            box-shadow: 0 4px 14px rgba(22, 163, 74, 0.25);
+            box-shadow: 0 10px 30px rgba(22, 163, 74, 0.24);
         }
         
         .btn-primary:hover {
             background: var(--green-dark);
             transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(22, 163, 74, 0.35);
+            box-shadow: 0 14px 34px rgba(22, 163, 74, 0.32);
         }
         
         .btn-secondary {
-            color: var(--green-primary);
+            color: var(--charcoal);
+            background: rgba(255,255,255,0.76);
+            border: 1px solid rgba(23, 23, 23, 0.08);
+            padding: 18px 28px;
+            border-radius: 999px;
             font-size: 18px;
-            font-weight: 500;
+            font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
             display: inline-flex;
@@ -192,93 +244,127 @@
         }
         
         .btn-secondary:hover {
-            color: var(--green-dark);
-            transform: translateX(4px);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .meta-chip {
+            background: transparent;
+            border: 1px solid rgba(23,23,23,0.1);
+            color: var(--gray-text);
+            border-radius: 999px;
+            padding: 10px 14px;
+            font-size: 14px;
         }
         
         /* Feature Cards Section */
         .features-section {
             background: var(--white);
-            padding: 120px 20px;
-        }
-        
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
+            padding: 120px 0;
         }
         
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 74px;
         }
         
         .section-title {
-            font-size: clamp(40px, 5vw, 64px);
-            line-height: 1.1;
-            margin-bottom: 20px;
+            font-size: clamp(38px, 5vw, 64px);
+            line-height: 1.08;
+            margin-bottom: 18px;
             color: var(--charcoal);
-            letter-spacing: -0.03em;
+            letter-spacing: -0.035em;
         }
         
         .section-subtitle {
             font-size: 20px;
             color: var(--gray-text);
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
         }
         
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
             margin-bottom: 80px;
         }
         
         .feature-card {
-            background: var(--cream);
-            padding: 40px;
-            border-radius: 24px;
+            background: linear-gradient(180deg, #fffdf8 0%, #f8f5ee 100%);
+            padding: 34px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(23, 23, 23, 0.05);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
         }
         
         .feature-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-medium);
+            border-color: rgba(22, 163, 74, 0.12);
         }
         
         .feature-icon {
-            width: 40px;
+            width: 52px;
+            height: 52px;
+            background: var(--green-soft);
+            border: 1px solid rgba(22, 163, 74, 0.12);
+            margin-bottom: 22px;
+            border-radius: 14px;
+            position: relative;
+        }
+
+        .feature-icon::after {
+            content: '';
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            top: 24px;
             height: 4px;
+            border-radius: 999px;
             background: var(--green-primary);
-            margin-bottom: 24px;
-            border-radius: 2px;
         }
         
         .feature-card h3 {
             font-size: 24px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: var(--charcoal);
             letter-spacing: -0.02em;
         }
         
         .feature-card p {
             font-size: 16px;
-            line-height: 1.6;
+            line-height: 1.65;
             color: var(--gray-text);
         }
         
         /* Highlight Features */
         .highlight-features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            background: var(--charcoal);
-            padding: 48px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 22px;
+            background: linear-gradient(180deg, #171717 0%, #202020 100%);
+            padding: 28px;
             border-radius: 32px;
             color: var(--white);
-            margin-top: 80px;
+            box-shadow: var(--shadow-medium);
         }
         
+        .highlight-item {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 22px;
+            padding: 24px;
+        }
+
         .highlight-item h4 {
             font-size: 20px;
             margin-bottom: 8px;
@@ -287,45 +373,46 @@
         }
         
         .highlight-item p {
-            font-size: 16px;
-            line-height: 1.5;
+            font-size: 15px;
+            line-height: 1.55;
             opacity: 0.9;
         }
         
         /* Comparison Section */
         .comparison-section {
             background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
-            padding: 120px 20px;
+            padding: 120px 0;
         }
         
         .comparison-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            max-width: 1000px;
-            margin: 60px auto 0;
+            gap: 28px;
+            max-width: 1040px;
+            margin: 56px auto 0;
         }
         
         .comparison-card {
-            padding: 48px;
-            border-radius: 24px;
+            padding: 42px;
+            border-radius: 28px;
             text-align: center;
         }
         
         .comparison-others {
             background: var(--white);
-            border: 2px solid #e5e7eb;
+            border: 1px solid #e5e7eb;
+            box-shadow: var(--shadow-soft);
         }
         
         .comparison-clientbase {
-            background: var(--green-primary);
+            background: linear-gradient(180deg, #16a34a 0%, #15803d 100%);
             color: var(--white);
-            box-shadow: 0 20px 40px rgba(22, 163, 74, 0.3);
+            box-shadow: var(--shadow-green);
         }
         
         .comparison-card h3 {
             font-size: 32px;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
             letter-spacing: -0.025em;
         }
         
@@ -333,14 +420,14 @@
             list-style: none;
             text-align: left;
             font-size: 18px;
-            line-height: 2;
+            line-height: 1.9;
         }
         
         .comparison-list li {
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
         
         .comparison-list li::before {
@@ -358,30 +445,134 @@
             content: '✓';
             color: var(--white);
         }
-        
+
         /* Pricing Section */
         .pricing-section {
             background: var(--white);
-            padding: 120px 20px;
+            padding: 120px 0;
             text-align: center;
         }
-        
-        .price-display {
-            margin: 60px auto;
+
+        .pricing-wrap {
+            max-width: 980px;
+            margin: 56px auto 0;
         }
-        
-        .price-amount {
-            font-size: clamp(64px, 8vw, 96px);
-            color: var(--green-primary);
-            line-height: 1;
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        .pricing-card {
+            position: relative;
+            background: linear-gradient(180deg, #fffdf8 0%, #f7f4ec 100%);
+            border: 1px solid rgba(23,23,23,0.08);
+            border-radius: 28px;
+            padding: 34px;
+            text-align: left;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(180deg, #16a34a 0%, #15803d 100%);
+            color: var(--white);
+            box-shadow: var(--shadow-green);
+            border-color: transparent;
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(22, 163, 74, 0.12);
+            color: var(--green-dark);
+            border: 1px solid rgba(22, 163, 74, 0.15);
+        }
+
+        .pricing-card.featured .pricing-badge {
+            background: rgba(255,255,255,0.16);
+            color: var(--white);
+            border-color: rgba(255,255,255,0.14);
+        }
+
+        .plan-name {
+            font-size: 18px;
+            font-weight: 600;
             margin-bottom: 16px;
+            opacity: 0.9;
+        }
+
+        .plan-price {
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .plan-price .amount {
+            font-size: clamp(44px, 6vw, 62px);
+            line-height: 0.95;
             letter-spacing: -0.04em;
         }
-        
-        .price-period {
-            font-size: 24px;
+
+        .plan-price .period {
+            font-size: 18px;
+            opacity: 0.78;
+            margin-bottom: 8px;
+        }
+
+        .plan-subtext {
+            font-size: 15px;
+            margin-bottom: 22px;
             color: var(--gray-text);
-            margin-bottom: 48px;
+        }
+
+        .pricing-card.featured .plan-subtext,
+        .pricing-card.featured .plan-features li,
+        .pricing-card.featured .plan-name {
+            color: rgba(255,255,255,0.95);
+        }
+
+        .plan-features {
+            list-style: none;
+        }
+
+        .plan-features li {
+            font-size: 16px;
+            color: var(--charcoal);
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            font-weight: 700;
+            color: var(--green-primary);
+        }
+
+        .pricing-card.featured .plan-features li::before {
+            color: var(--white);
+        }
+
+        .pricing-note {
+            font-size: 18px;
+            color: var(--gray-text);
+            max-width: 720px;
+            margin: 0 auto 36px;
         }
         
         .app-store-badge {
@@ -391,7 +582,7 @@
         }
         
         .app-store-badge:hover {
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
         
         .app-store-badge img {
@@ -404,26 +595,26 @@
         footer {
             background: var(--charcoal);
             color: var(--white);
-            padding: 80px 20px 40px;
+            padding: 80px 0 40px;
             text-align: center;
         }
         
         .footer-logo {
             font-size: 48px;
-            margin-bottom: 24px;
+            margin-bottom: 18px;
             letter-spacing: -0.035em;
         }
         
         .footer-tagline {
             font-size: 18px;
-            opacity: 0.8;
-            margin-bottom: 40px;
+            opacity: 0.82;
+            margin-bottom: 34px;
         }
         
         .footer-bottom {
-            padding-top: 40px;
+            padding-top: 34px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 40px;
+            margin-top: 34px;
         }
         
         .footer-bottom p {
@@ -432,9 +623,16 @@
         }
         
         /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .comparison-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
-            .nav-container {
-                padding: 16px 20px;
+            .nav-pill {
+                display: none;
             }
             
             .logo {
@@ -442,25 +640,33 @@
             }
             
             .hero {
-                padding: 100px 20px 60px;
+                padding: 110px 20px 70px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
             }
             
             .features-grid {
                 grid-template-columns: 1fr;
-                gap: 24px;
-            }
-            
-            .comparison-grid {
-                grid-template-columns: 1fr;
+                gap: 22px;
             }
             
             .highlight-features {
-                padding: 32px 24px;
-                gap: 32px;
+                padding: 22px;
+                gap: 18px;
             }
             
-            .comparison-card {
-                padding: 32px;
+            .comparison-card,
+            .pricing-card,
+            .feature-card {
+                padding: 28px;
             }
         }
         
@@ -468,7 +674,7 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(28px);
             }
             to {
                 opacity: 1;
@@ -490,20 +696,42 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <div class="nav-container">
-            <div class="logo bodoni-bold">ClientBase.</div>
-            <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="nav-cta">Get the App</a>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo bodoni-bold">ClientBase.</div>
+                <div class="nav-right">
+                    <div class="nav-pill">From €1.49/month</div>
+                    <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="nav-cta">Get the App</a>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1 class="bodoni fade-in">Own Your Business Tools</h1>
-            <p class="tagline fade-in delay-1">Manage clients, schedule appointments, and track payments<br>in one beautifully designed app. No monthly subscriptions.</p>
-            <div class="hero-buttons fade-in delay-2">
-                <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="btn-primary">Download for €12.99</a>
-                <a href="#features" class="btn-secondary">See Features →</a>
+            <div class="hero-badge fade-in">
+                <span class="dot"></span>
+                Built for tradespeople and independent service businesses
+            </div>
+
+            <h1 class="bodoni fade-in delay-1">Run Your Client Work<br>Without the Chaos</h1>
+
+            <p class="tagline fade-in delay-2">
+                Manage clients, schedule appointments, send invoices, and track payments
+                in one beautifully designed app. Simple, practical, and built for real service work.
+            </p>
+
+            <div class="hero-buttons fade-in delay-3">
+                <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="btn-primary">Start from €1.49/month</a>
+                <a href="#pricing" class="btn-secondary">See Pricing ↓</a>
+            </div>
+
+            <div class="hero-meta fade-in delay-4">
+                <div class="meta-chip">Invoices</div>
+                <div class="meta-chip">Scheduling</div>
+                <div class="meta-chip">Payment Tracking</div>
+                <div class="meta-chip">Offline-first</div>
             </div>
         </div>
     </section>
@@ -512,64 +740,67 @@
     <section class="features-section" id="features">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title bodoni">Everything You Need.<br>Nothing You Don't.</h2>
-                <p class="section-subtitle">Perfect for freelancers, consultants, tradespeople, and small business owners who want simple, powerful client management.</p>
+                <h2 class="section-title bodoni">Everything You Need.<br>Nothing Bloated.</h2>
+                <p class="section-subtitle">
+                    ClientBase is built for tradespeople, cleaners, gardeners, car valets, window cleaners,
+                    and small business owners who want control without complicated software.
+                </p>
             </div>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon"></div>
                     <h3 class="bodoni">Professional Invoicing</h3>
-                    <p>Create custom invoices right in the app, or generate them automatically from unpaid appointments. Get paid faster with everything in one place.</p>
+                    <p>Create custom invoices right in the app, or generate them automatically from unpaid appointments. Keep billing fast, clear, and professional.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon"></div>
                     <h3 class="bodoni">Smart Scheduling</h3>
-                    <p>Automatically move recurring clients to the days you're actually working. Intelligent double-booking alerts prevent costly scheduling mistakes.</p>
+                    <p>Book appointments quickly, keep your diary organised, and avoid costly mistakes with intelligent double-booking alerts.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon"></div>
                     <h3 class="bodoni">Payment Tracking</h3>
-                    <p>See all unpaid appointments at a glance. Mark them as paid with a single tap. Get a clear, instant overview of your cash flow.</p>
+                    <p>See unpaid work at a glance, mark jobs as paid in seconds, and keep a clear overview of what money is still outstanding.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon"></div>
                     <h3 class="bodoni">Detailed Client Profiles</h3>
-                    <p>Store contact info, appointment history, notes, and custom tags. Call or message clients directly from the app with a single tap.</p>
+                    <p>Store contact details, job history, notes, and tags. Call or message clients directly from the app when you need to move fast.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon"></div>
                     <h3 class="bodoni">Business Analytics</h3>
-                    <p>View your earnings, appointments, and client statistics weekly and monthly. Understand your business health at a glance.</p>
+                    <p>Track earnings, appointments, and client activity weekly or monthly so you always know how the business is performing.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon"></div>
                     <h3 class="bodoni">Powerful Search</h3>
-                    <p>Find any client or appointment in seconds by name, phone number, address, or custom tags. Your entire business at your fingertips.</p>
+                    <p>Find clients, jobs, notes, numbers, addresses, and tagged records in seconds. Everything stays easy to reach as the business grows.</p>
                 </div>
             </div>
             
             <div class="highlight-features">
                 <div class="highlight-item">
-                    <h4 class="bodoni">Privacy-First & Offline</h4>
-                    <p>Your business data is yours alone. Everything stored securely on your device - no cloud servers, no data collection, no internet required.</p>
+                    <h4 class="bodoni">Privacy-First</h4>
+                    <p>Your client information stays under your control. No bloated back office, no unnecessary complexity, no nonsense.</p>
                 </div>
                 <div class="highlight-item">
                     <h4 class="bodoni">Weather Integration</h4>
-                    <p>See forecasts for today and your upcoming jobs right where you need it. Plan your schedule around the weather.</p>
+                    <p>See forecasts for today and upcoming jobs right where you need them, so outdoor work is easier to plan.</p>
                 </div>
                 <div class="highlight-item">
                     <h4 class="bodoni">Message Templates</h4>
-                    <p>Save time with customizable templates for appointment confirmations. Set up once, send with a tap.</p>
+                    <p>Save time with reusable appointment messages and confirmations that can be sent quickly when the day gets busy.</p>
                 </div>
                 <div class="highlight-item">
                     <h4 class="bodoni">Beautiful iOS Design</h4>
-                    <p>Modern iOS interface with fluid animations. Built specifically for iPhone and iPad with attention to every detail.</p>
+                    <p>Fast, clean, and polished. Built specifically for iPhone and iPad with a modern interface that feels right at home on iOS.</p>
                 </div>
             </div>
         </div>
@@ -579,32 +810,32 @@
     <section class="comparison-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title bodoni">Why Professionals<br>Choose ClientBase.</h2>
-                <p class="section-subtitle">Stop paying monthly fees that eat into your profits.</p>
+                <h2 class="section-title bodoni">Built for Real Work,<br>Not Software Overkill</h2>
+                <p class="section-subtitle">ClientBase focuses on the essentials service businesses actually use every day.</p>
             </div>
             
             <div class="comparison-grid">
                 <div class="comparison-card comparison-others">
-                    <h3 class="bodoni">Subscription Apps</h3>
+                    <h3 class="bodoni">Complicated Software</h3>
                     <ul class="comparison-list">
-                        <li>€20+ monthly forever</li>
-                        <li>€720+ over 3 years</li>
-                        <li>Limited offline access</li>
-                        <li>Your data on their servers</li>
-                        <li>Feature paywalls</li>
-                        <li>Restricted data export</li>
+                        <li>Too many features you never touch</li>
+                        <li>Messy dashboards and admin overload</li>
+                        <li>Harder to use on the go</li>
+                        <li>More time spent managing software</li>
+                        <li>Often built for offices, not field work</li>
+                        <li>Feels heavy for small teams or solo work</li>
                     </ul>
                 </div>
                 
                 <div class="comparison-card comparison-clientbase">
                     <h3 class="bodoni">ClientBase.</h3>
                     <ul class="comparison-list">
-                        <li>€12.99 once, forever</li>
-                        <li>No recurring fees</li>
-                        <li>Full functionality offline</li>
-                        <li>Your data stays on your device</li>
-                        <li>All features included</li>
-                        <li>Export your data anytime</li>
+                        <li>Simple client and job management</li>
+                        <li>Quick scheduling and invoicing</li>
+                        <li>Designed for everyday service work</li>
+                        <li>Clear payment tracking</li>
+                        <li>Fast to use when you're busy</li>
+                        <li>Clean, focused, and practical</li>
                     </ul>
                 </div>
             </div>
@@ -612,13 +843,46 @@
     </section>
 
     <!-- Pricing Section -->
-    <section class="pricing-section">
+    <section class="pricing-section" id="pricing">
         <div class="container">
-            <h2 class="section-title bodoni">Download once.<br>Use forever.</h2>
-            
-            <div class="price-display">
-                <div class="price-amount bodoni-bold">€12.99</div>
-                <div class="price-period">One-time purchase. No subscriptions.</div>
+            <h2 class="section-title bodoni">Simple Pricing.<br>Pick What Fits.</h2>
+            <p class="pricing-note">
+                Start with a low monthly cost, or save with the yearly plan.
+            </p>
+
+            <div class="pricing-wrap">
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="plan-name">Monthly</div>
+                        <div class="plan-price">
+                            <div class="amount bodoni-bold">€1.49</div>
+                            <div class="period">/ month</div>
+                        </div>
+                        <div class="plan-subtext">Flexible access with a low monthly price.</div>
+                        <ul class="plan-features">
+                            <li>Full access to ClientBase</li>
+                            <li>Invoices, scheduling, and client management</li>
+                            <li>Payment tracking and business overview</li>
+                            <li>Designed for iPhone and iPad</li>
+                        </ul>
+                    </div>
+
+                    <div class="pricing-card featured">
+                        <div class="pricing-badge">Best Value</div>
+                        <div class="plan-name">Yearly</div>
+                        <div class="plan-price">
+                            <div class="amount bodoni-bold">€14</div>
+                            <div class="period">/ year</div>
+                        </div>
+                        <div class="plan-subtext">Lower annual cost and the best overall value.</div>
+                        <ul class="plan-features">
+                            <li>Everything in the monthly plan</li>
+                            <li>Save versus paying monthly all year</li>
+                            <li>Simple annual billing</li>
+                            <li>Ideal for regular business use</li>
+                        </ul>
+                    </div>
+                </div>
                 
                 <div style="text-align: center;">
                     <a href="https://apps.apple.com/ie/app/clientbase/id6749312765" class="app-store-badge">
@@ -626,8 +890,6 @@
                     </a>
                 </div>
             </div>
-            
-            <p class="section-subtitle">Complete control. Your data stays yours. No lock-in.</p>
         </div>
     </section>
 
@@ -635,10 +897,10 @@
     <footer>
         <div class="container">
             <div class="footer-logo bodoni-bold">ClientBase.</div>
-            <p class="footer-tagline">Professional client management without the monthly fees.</p>
+            <p class="footer-tagline">Professional client management for service businesses.</p>
             
             <div class="footer-bottom">
-                <p>© 2025 ClientBase. Built for small business owners who deserve better.</p>
+                <p>© 2026 ClientBase. Built for small business owners who want simpler tools.</p>
             </div>
         </div>
     </footer>
@@ -661,8 +923,8 @@
 
         // Intersection Observer for animations
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.12,
+            rootMargin: '0px 0px -40px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -674,10 +936,10 @@
             });
         }, observerOptions);
 
-        // Observe all feature cards and sections
-        document.querySelectorAll('.feature-card, .comparison-card, .highlight-features').forEach(el => {
+        // Observe animated sections
+        document.querySelectorAll('.feature-card, .comparison-card, .highlight-item, .pricing-card').forEach(el => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
+            el.style.transform = 'translateY(18px)';
             el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
             observer.observe(el);
         });
@@ -686,10 +948,10 @@
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('nav');
             if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(250, 248, 243, 0.98)';
-                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+                navbar.style.background = 'rgba(250, 248, 243, 0.94)';
+                navbar.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.06)';
             } else {
-                navbar.style.background = 'rgba(250, 248, 243, 0.95)';
+                navbar.style.background = 'rgba(250, 248, 243, 0.82)';
                 navbar.style.boxShadow = 'none';
             }
         });

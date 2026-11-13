@@ -8,6 +8,9 @@
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b0c0d" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" href="img/icon-180.png">
+<link rel="apple-touch-icon" href="img/icon-180.png">
+<meta property="og:image" content="https://daraghbee.github.io/GetClientBase/img/icon-512.png">
 <meta name="apple-itunes-app" content="app-id=6749312765">
 <meta property="og:title" content="ClientBase: jobs, clients and money for service businesses">
 <meta property="og:description" content="Plan the round, track who has paid, send invoices and log expenses. Free for your first 15 clients.">
@@ -77,9 +80,8 @@ nav {
 }
 .nav-in { display: flex; align-items: center; justify-content: space-between; height: 60px; }
 .brand { font-weight: 700; font-size: 19px; letter-spacing: -0.03em; text-decoration: none; display: flex; align-items: center; gap: 9px; }
-.brand-mark { width: 22px; height: 22px; border-radius: 6px; background: var(--green); display: grid; grid-template-columns: 7px 1fr; grid-template-rows: 1fr 1fr; gap: 2px; padding: 5px; }
-.brand-mark i { background: var(--on-green); border-radius: 1.5px; }
-.brand-mark i:first-child { grid-row: span 2; }
+.brand-mark { width: 28px; height: 28px; border-radius: 22.5%; }
+.final-icon { width: 88px; height: 88px; border-radius: 22.5%; margin: 0 auto 28px; box-shadow: var(--shadow); }
 .nav-links { display: flex; align-items: center; gap: 28px; }
 .nav-links a { text-decoration: none; font-size: 15px; color: var(--muted); }
 .nav-links a:hover { color: var(--text); }
@@ -204,7 +206,7 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--green); outlin
 <nav>
     <div class="wrap nav-in">
         <a class="brand" href="#top" aria-label="ClientBase home">
-            <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+            <img class="brand-mark" src="img/icon-180.png" width="28" height="28" alt="">
             ClientBase
         </a>
         <div class="nav-links">
@@ -497,6 +499,7 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--green); outlin
 
 <section class="final">
     <div class="wrap">
+        <img class="final-icon" loading="lazy" src="img/icon-180.png" width="88" height="88" alt="ClientBase app icon">
         <h2>Try it on tomorrow's round.</h2>
         <p class="lead">Add a few clients, book the day, and see how it feels. It costs nothing to find out.</p>
         <a class="badge" href="https://apps.apple.com/ie/app/clientbase-jobs-clients/id6749312765">
